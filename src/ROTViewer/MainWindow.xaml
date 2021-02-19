@@ -1,0 +1,13 @@
+﻿<Window x:Class="ROTViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Running Object Table Viewer" Height="398" Width="576" Loaded="Window_Loaded" Icon="/ROTViewer;component/Images/List%2048%20n%20p.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button  Content="Refresh Table"  Name="refreshTable" Click="refreshTable_Click" />
+        <ListBox  Grid.Row="1" Name="monikerList" ItemsSource="{Binding Path=Monikers }" />
+    </Grid>
+</Window>
