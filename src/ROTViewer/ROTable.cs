@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.InteropServices;
 
@@ -37,14 +37,29 @@ namespace ROTViewer
 
                 try
                 {
+                    List<ROTMoniker> list = new List<ROTMoniker>();
                     comenum.Reset();
                     int celt = 1;
                     IMoniker[] monikers = new IMoniker[1];
                     IntPtr pfetched = new IntPtr();
                     while (comenum.Next(celt, monikers, pfetched) == 0)
                     {
-                        yield return new ROTMoniker(monikers[0], null);
+                        list.Add(new ROTMoniker(monikers[0], null));
                     }
+                    list = (from data in list
+                            orderby data.Name
+                            select data).ToList<ROTMoniker>();
+                    foreach (ROTMoniker moniker in list)
+                        yield return moniker;
+
+                    //comenum.Reset();
+                    //int celt = 1;
+                    //IMoniker[] monikers = new IMoniker[1];
+                    //IntPtr pfetched = new IntPtr();
+                    //while (comenum.Next(celt, monikers, pfetched) == 0)
+                    //{
+                    //    yield return new ROTMoniker(monikers[0], null);
+                    //}
                 }
                 finally
                 {
